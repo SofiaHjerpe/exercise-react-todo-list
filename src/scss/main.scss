@@ -3,4 +3,7 @@
 
 
 //###global###
-@use "./global"
+@use "./global";
+
+//###components###
+@use "./src/components/Form"
