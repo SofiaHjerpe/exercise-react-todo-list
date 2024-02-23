@@ -6,4 +6,5 @@
 @use "./global";
 
 //###components###
-@use "./src/components/Form"
+@use "./src/components/Form";
+@use "./src/components/TodoItem";

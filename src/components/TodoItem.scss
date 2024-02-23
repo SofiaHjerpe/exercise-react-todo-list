@@ -1,0 +1,67 @@
+@use "../scss/abstracts/colors" as *;
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+
+  background-color: $purple-light;
+  color: $purple;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  width: 400px;
+  padding: 10px 15px;
+  height: 49px;
+  font-family: "Inter", sans-serif;
+  font-size: 25px;
+  border-color: transparent;
+}
+.action-icons .material-icons {
+  font-size: 20px;
+  color: $purple;
+}
+.btn-icon {
+  color: #865dff;
+  background-color: transparent;
+  outline: none;
+  border-color: transparent;
+}
+.material-icons {
+  font-size: 60px;
+}
+.text {
+  white-space: nowrap;
+}
+.moreInfo {
+  width: 20px;
+  bottom: 50px;
+}
+.moreInfo:hover {
+  .mInfo {
+    display: block;
+  }
+}
+.mInfo {
+  font-size: 10px;
+  font-family: "Inter", sans-serif;
+  display: none;
+}
+.text {
+  white-space: nowrap;
+}
+.info {
+    font-family: "Inter", sans-serif;
+    color: #999;
+    font-weight: 600;
+}
+@media screen and (max-width: 768px) {
+  .todo-item {
+    width: 300px;
+    padding: 10px 15px;
+    height: 39px;
+    font-size: 16px;
+  }
+  .material-icons {
+    font-size: 40px;
+  }
+}
