@@ -9,10 +9,40 @@ export function AddTodo() {
   const [author, setAuthor] = useState("");
   const [done, setDone] = useState(false);
 
+  const moveUp = (id: number) => {
+    setTodos((preVal) => {
+      const index = preVal.findIndex((todo) => todo.id === id);
+
+      const copy = [...preVal];
+
+      if (index > 0) {
+        const temp = copy[index];
+        copy[index] = copy[index - 1];
+        copy[index - 1] = temp;
+      }
+      return copy;
+    });
+  };
+
+  const moveDown = (id: number) => {
+    setTodos((preVal) => {
+      const index = preVal.findIndex((todo) => todo.id === id);
+
+      const copy = [...preVal];
+
+      if (index > 0) {
+        const temp = copy[index];
+        copy[index] = copy[index + 1];
+        copy[index + 1] = temp;
+      }
+      return copy;
+    });
+  };
+
   const deleteTodo = (id: number) => {
     setTodos(todoItem.filter((todo) => todo.id !== id));
   };
-  const toggleDone = (id: number, done: boolean) => {
+  const toggleDone = (done: boolean) => {
     setDone(done);
 
     console.log(done);
@@ -43,7 +73,7 @@ export function AddTodo() {
         author={author}
         setAuthor={setAuthor}
       />
-      <TodoList todos={todoItem} toggleDone={toggleDone} deleteTodo={deleteTodo} />
+      <TodoList todos={todoItem} moveUp={moveUp} moveDown={moveDown} deleteTodo={deleteTodo} />
     </div>
   );
 }

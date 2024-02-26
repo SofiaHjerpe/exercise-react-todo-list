@@ -1,36 +1,42 @@
-import { MouseEventHandler } from "react";
+import { ChangeEventHandler, MouseEventHandler } from "react";
 import { ITodo } from "../interfaces";
 
 interface ITodoItemProps {
   todo: ITodo;
-  toggleDone: (id: number, done: boolean) => void;
   deleteTodo: (id: number) => void;
+  moveUp: (id: number) => void;
+  moveDown: (id: number) => void;
 }
-export function TodoItem({ todo, toggleDone, deleteTodo }: ITodoItemProps) {
+export function TodoItem({ todo, deleteTodo, moveUp, moveDown }: ITodoItemProps) {
   const handleOnClick: MouseEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     deleteTodo(todo.id);
   };
 
-  const handleOnChecked: MouseEventHandler<HTMLInputElement> = (event) => {
+  const handleOnClickArrowUp: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
-    let toggleVal = (todo.done = !todo.done);
-    toggleDone(todo.id, toggleVal);
+    moveUp(todo.id);
   };
+
+  const handleOnClickArrowDown: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    moveDown(todo.id);
+  };
+
   return (
     <article className="todo-item">
       <div className="action-icons">
         <label htmlFor="done">Done</label>
-        <input type="checkbox" onClick={handleOnChecked} id="done" className="done" />
+        <input type="checkbox" id="done" className="done" />
       </div>
       <div>
         <span className="text">{todo.todo}</span>
       </div>
       <div className="action-icons">
-        <button id={todo.id.toString()} className="btn-icon moveUp">
+        <button onClick={handleOnClickArrowUp} className="btn-icon moveUp">
           <span className="material-icons">arrow_upward</span>
         </button>
-        <button id={todo.id.toString()} className="btn-icon moveDown">
+        <button onClick={handleOnClickArrowDown} className="btn-icon moveDown">
           <span className="material-icons">arrow_downward</span>
         </button>
         <button className="btn-icon delete">
