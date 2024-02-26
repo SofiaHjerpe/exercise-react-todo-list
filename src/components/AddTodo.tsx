@@ -42,11 +42,7 @@ export function AddTodo() {
   const deleteTodo = (id: number) => {
     setTodos(todoItem.filter((todo) => todo.id !== id));
   };
-  const toggleDone = (done: boolean) => {
-    setDone(done);
-
-    console.log(done);
-  };
+  
   const addTodoToList: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     console.log("saved");
