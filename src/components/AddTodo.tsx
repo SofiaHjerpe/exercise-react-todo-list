@@ -30,7 +30,7 @@ export function AddTodo() {
 
       const copy = [...preVal];
 
-      if (index > 0) {
+      if (index < todoItem.length - 1) {
         const temp = copy[index];
         copy[index] = copy[index + 1];
         copy[index + 1] = temp;
