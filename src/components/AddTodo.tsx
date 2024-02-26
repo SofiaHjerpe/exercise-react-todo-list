@@ -7,7 +7,16 @@ export function AddTodo() {
   const [todoItem, setTodos] = useState(todos);
   const [todo, setTodo] = useState("");
   const [author, setAuthor] = useState("");
+  const [done, setDone] = useState(false);
 
+  const deleteTodo = (id: number) => {
+    setTodos(todoItem.filter((todo) => todo.id !== id));
+  };
+  const toggleDone = (id: number, done: boolean) => {
+    setDone(done);
+
+    console.log(done);
+  };
   const addTodoToList: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     console.log("saved");
@@ -19,7 +28,7 @@ export function AddTodo() {
       todo: todo,
       author: author,
       timeStamp: new Date(),
-      done: false,
+      done: done,
     };
     console.log(newTodoItem);
     setTodos([...todoItem, newTodoItem]);
@@ -34,7 +43,7 @@ export function AddTodo() {
         author={author}
         setAuthor={setAuthor}
       />
-      <TodoList todos={todoItem}/>
+      <TodoList todos={todoItem} toggleDone={toggleDone} deleteTodo={deleteTodo} />
     </div>
   );
 }

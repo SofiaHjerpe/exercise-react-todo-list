@@ -1,9 +1,11 @@
 @use "../scss/abstracts/colors" as *;
 .todo-item {
   display: flex;
+  align-self: center;
   align-items: center;
   justify-content: space-between;
   gap: 5px;
+  margin-top: 20px;
 
   background-color: $purple-light;
   color: $purple;
