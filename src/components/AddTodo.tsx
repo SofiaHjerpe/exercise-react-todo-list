@@ -6,8 +6,9 @@ export function AddTodo() {
   const todos: ITodo[] = [];
   const [todoItem, setTodos] = useState(todos);
   const [todo, setTodo] = useState("");
+  const[todoBefore, setEditedTodo] = useState("");
+  const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
   const [author, setAuthor] = useState("");
-  const [done, setDone] = useState(false);
 
   const moveUp = (id: number) => {
     setTodos((preVal) => {
@@ -39,10 +40,16 @@ export function AddTodo() {
     });
   };
 
+  const updateTodo = (id: number, newValue: string) => {
+    setTodos(todoItem.map((todo) => (todo.id === id ? { ...todo, todo: newValue } : todo)));
+  };
+
   const deleteTodo = (id: number) => {
     setTodos(todoItem.filter((todo) => todo.id !== id));
   };
-  
+
+
+
   const addTodoToList: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     console.log("saved");
@@ -54,11 +61,11 @@ export function AddTodo() {
       todo: todo,
       author: author,
       timeStamp: new Date(),
-      done: done,
+      done: false,
     };
     console.log(newTodoItem);
     setTodos([...todoItem, newTodoItem]);
-    todos.push(newTodoItem);
+
   };
   return (
     <div>
@@ -69,7 +76,17 @@ export function AddTodo() {
         author={author}
         setAuthor={setAuthor}
       />
-      <TodoList todos={todoItem} moveUp={moveUp} moveDown={moveDown} deleteTodo={deleteTodo} />
+      <TodoList
+        todos={todoItem}
+        moveUp={moveUp}
+        moveDown={moveDown}
+        todoBefore={todoBefore}
+        setEditedTodo={setEditedTodo}
+        updateTodo={updateTodo}
+        setEditingTodoId={setEditingTodoId}
+        deleteTodo={deleteTodo}
+        editingTodoId={editingTodoId}
+      />
     </div>
   );
 }

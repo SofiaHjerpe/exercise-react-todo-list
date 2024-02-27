@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { ITodo } from "../interfaces";
 import { TodoItem } from "./TodoItem";
 
@@ -6,8 +7,13 @@ interface ITodoListProps {
   deleteTodo: (id: number) => void;
   moveUp: (id: number) => void;
   moveDown: (id: number) => void;
+  setEditingTodoId: Dispatch<SetStateAction<number | null>>;
+  setEditedTodo: Dispatch<React.SetStateAction<string>>;
+  todoBefore: string;
+  updateTodo: (id: number, newValue: string) => void;
+  editingTodoId: number | null;
 }
-export function TodoList({ todos, deleteTodo, moveDown, moveUp }: ITodoListProps) {
+export function TodoList({ todos, editingTodoId, deleteTodo, updateTodo, todoBefore, setEditedTodo, setEditingTodoId, moveDown, moveUp }: ITodoListProps) {
   return (
     <div>
       {todos.map((todo) => (
@@ -17,6 +23,11 @@ export function TodoList({ todos, deleteTodo, moveDown, moveUp }: ITodoListProps
           moveUp={moveUp}
           moveDown={moveDown}
           deleteTodo={deleteTodo}
+          todoBefore={todoBefore}
+          updateTodo={updateTodo}
+          setEditedTodo={setEditedTodo}
+          setEditingTodoId={setEditingTodoId}
+          editingTodoId={editingTodoId}
         />
       ))}
       ;

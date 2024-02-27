@@ -1,4 +1,4 @@
-import { ChangeEventHandler, MouseEventHandler } from "react";
+import { Dispatch, MouseEventHandler, SetStateAction } from "react";
 import { ITodo } from "../interfaces";
 
 interface ITodoItemProps {
@@ -6,12 +6,46 @@ interface ITodoItemProps {
   deleteTodo: (id: number) => void;
   moveUp: (id: number) => void;
   moveDown: (id: number) => void;
+  setEditingTodoId: Dispatch<SetStateAction<number | null>>;
+  setEditedTodo: Dispatch<React.SetStateAction<string>>;
+  todoBefore: string;
+  updateTodo: (id: number, newValue: string) => void;
+  editingTodoId: number | null;
 }
-export function TodoItem({ todo, deleteTodo, moveUp, moveDown }: ITodoItemProps) {
+export function TodoItem({
+  todo,
+  deleteTodo,
+  moveUp,
+  moveDown,
+  todoBefore,
+  updateTodo,
+  setEditingTodoId,
+  setEditedTodo,
+  editingTodoId,
+}: ITodoItemProps) {
+  console.log(todoBefore);
   const handleOnClick: MouseEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     deleteTodo(todo.id);
   };
+
+  const inputField = (
+    <label>
+      Edit todo:
+      <input
+        type="text"
+        onChange={(e) => {
+          console.log(e.target.value);
+          setEditedTodo(e.target.value);
+        }}
+        onBlur={() => {
+          updateTodo(todo.id, todoBefore), handleOnEdit}}
+        value={todoBefore}
+        id="edit"
+        name="edit"
+      />
+    </label>
+  );
 
   const handleOnClickArrowUp: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -23,6 +57,11 @@ export function TodoItem({ todo, deleteTodo, moveUp, moveDown }: ITodoItemProps)
     moveDown(todo.id);
   };
 
+  const handleOnEdit: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    setEditingTodoId(todo.id);
+  };
+
   return (
     <article className="todo-item">
       <div className="action-icons">
@@ -30,7 +69,18 @@ export function TodoItem({ todo, deleteTodo, moveUp, moveDown }: ITodoItemProps)
         <input type="checkbox" id="done" className="done" />
       </div>
       <div>
-        <span className="text">{todo.todo}</span>
+        <div>
+          {editingTodoId === todo.id ? (
+            inputField
+          ) : (
+            <div>
+              <div className="text">{todo.todo}</div>
+              <button className="btn-primary small" onClick={handleOnEdit}>
+                Edit
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <div className="action-icons">
         <button onClick={handleOnClickArrowUp} className="btn-icon moveUp">
