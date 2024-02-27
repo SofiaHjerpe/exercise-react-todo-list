@@ -39,13 +39,16 @@ export function TodoItem({
           setEditedTodo(e.target.value);
         }}
         onBlur={() => {
-          updateTodo(todo.id, todoBefore), handleOnEdit}}
+          updateTodo(todo.id, todoBefore);
+          setEditingTodoId(null);
+        }}
         value={todoBefore}
         id="edit"
         name="edit"
       />
     </label>
   );
+
 
   const handleOnClickArrowUp: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -62,6 +65,14 @@ export function TodoItem({
     setEditingTodoId(todo.id);
   };
 
+    const todoValue = (
+      <div className="todo-container">
+        <div className="text">{todo.todo}</div>
+        <button className="btn-primary small" onClick={handleOnEdit}>
+          Edit
+        </button>
+      </div>
+    );
   return (
     <article className="todo-item">
       <div className="action-icons">
@@ -69,18 +80,7 @@ export function TodoItem({
         <input type="checkbox" id="done" className="done" />
       </div>
       <div>
-        <div>
-          {editingTodoId === todo.id ? (
-            inputField
-          ) : (
-            <div>
-              <div className="text">{todo.todo}</div>
-              <button className="btn-primary small" onClick={handleOnEdit}>
-                Edit
-              </button>
-            </div>
-          )}
-        </div>
+        <div>{editingTodoId === todo.id ? inputField : todoValue}</div>
       </div>
       <div className="action-icons">
         <button onClick={handleOnClickArrowUp} className="btn-icon moveUp">

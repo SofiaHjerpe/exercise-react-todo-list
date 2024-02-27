@@ -11,7 +11,7 @@
   color: $purple;
   margin-bottom: 20px;
   border-radius: 20px;
-  width: 400px;
+  width: 850px;
   padding: 10px 15px;
   height: 49px;
   font-family: "Inter", sans-serif;
@@ -56,13 +56,23 @@
     color: #999;
     font-weight: 600;
 }
+.todo-container{
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
 @media screen and (max-width: 768px) {
   .todo-item {
-    width: 300px;
+    width: 320px;
     padding: 10px 15px;
     height: 39px;
-    font-size: 16px;
+    font-size: 10px;
   }
+  .small {
+  width: 50px;
+  height: 20px;
+  font-size: 10px;
+}
   .material-icons {
     font-size: 40px;
   }
