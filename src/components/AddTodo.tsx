@@ -67,9 +67,36 @@ export function AddTodo() {
     setTodos([...todoItem, newTodoItem]);
   };
 
-  const sortTodo = (sortVal: string) => {
-    console.log(sortVal);
-  };
+
+const sortTodoByAuthor = () => {
+  setTodos((preVal) => {
+    return [...preVal].sort((a, b) => {
+      if (a.author < b.author) {
+        return -1;
+      }
+      if (a.author > b.author) {
+        return 1;
+      }
+      // Authors are the same, sort by timeStamp
+      return a.timeStamp < b.timeStamp ? -1 : 1;
+    });
+  });
+};
+
+const sortTodoByTimestamp = () => {
+  setTodos((preVal) => {
+    return [...preVal].sort((a, b) => {
+      if (a.timeStamp < b.timeStamp) {
+        return -1;
+      }
+      if (a.timeStamp > b.timeStamp) {
+        return 1;
+      }
+      // Timestamp are the same, sort by author
+      return a.author < b.author ? -1 : 1;
+    });
+  });
+};
   return (
     <div>
       <Form

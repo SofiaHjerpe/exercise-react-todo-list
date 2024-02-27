@@ -10,26 +10,34 @@ interface IFormProps {
 
 export function Form(props: IFormProps) {
   return (
-    <form className="form" onSubmit={props.addTodoToList}>
-      <div className="inputs">
-        <input
-          value={props.todo}
-          onChange={(event) => props.setTodo(event.target.value)}
-          className="addItem text"
-          type="text"
-          placeholder="+ Add Item"
-        />
-        <input
-          value={props.author}
-          onChange={(event) => props.setAuthor(event.target.value)}
-          className="addItem author"
-          type="text"
-          placeholder="+ Author"
-        />
-      </div>
-      <button type="submit" className="btn-primary add">
-        Add
-      </button>
-    </form>
+    <div>
+      <header className="sort-header">
+        <button className="btn-icon">
+          <span className="material-icons">sort</span>
+        </button>
+      </header>
+
+      <form className="form" onSubmit={props.addTodoToList}>
+        <div className="inputs">
+          <input
+            value={props.todo}
+            onChange={(event) => props.setTodo(event.target.value)}
+            className="addItem text"
+            type="text"
+            placeholder="+ Add Item"
+          />
+          <input
+            value={props.author}
+            onChange={(event) => props.setAuthor(event.target.value)}
+            className="addItem author"
+            type="text"
+            placeholder="+ Author"
+          />
+        </div>
+        <button type="submit" className="btn-primary add">
+          Add
+        </button>
+      </form>
+    </div>
   );
 }
