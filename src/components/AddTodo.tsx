@@ -1,14 +1,16 @@
 import { FormEventHandler, useState } from "react";
 import { Form } from "./Form";
 import { ITodo } from "../interfaces";
+import { Sort } from "./Sort";
 import { TodoList } from "./TodoList";
 export function AddTodo() {
   const todos: ITodo[] = [];
   const [todoItem, setTodos] = useState(todos);
   const [todo, setTodo] = useState("");
-  const[todoBefore, setEditedTodo] = useState("");
+  const [todoBefore, setEditedTodo] = useState("");
   const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
   const [author, setAuthor] = useState("");
+  const [sort, setSort] = useState("");
 
   const moveUp = (id: number) => {
     setTodos((preVal) => {
@@ -48,8 +50,6 @@ export function AddTodo() {
     setTodos(todoItem.filter((todo) => todo.id !== id));
   };
 
-
-
   const addTodoToList: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     console.log("saved");
@@ -65,10 +65,14 @@ export function AddTodo() {
     };
     console.log(newTodoItem);
     setTodos([...todoItem, newTodoItem]);
+  };
 
+  const sortTodo = (sortVal: string) => {
+    console.log(sortVal);
   };
   return (
     <div>
+      <Sort sortTodos={sortTodo} sort={sort} setSort={setSort} />
       <Form
         addTodoToList={addTodoToList}
         todo={todo}

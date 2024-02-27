@@ -12,20 +12,10 @@ interface ITodoItemProps {
   updateTodo: (id: number, newValue: string) => void;
   editingTodoId: number | null;
 }
-export function TodoItem({
-  todo,
-  deleteTodo,
-  moveUp,
-  moveDown,
-  todoBefore,
-  updateTodo,
-  setEditingTodoId,
-  setEditedTodo,
-  editingTodoId,
-}: ITodoItemProps) {
+export function TodoItem(props: ITodoItemProps) {
   const handleOnClick: MouseEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
-    deleteTodo(todo.id);
+    props.deleteTodo(props.todo.id);
   };
 
   const inputField = (
@@ -35,13 +25,13 @@ export function TodoItem({
         type="text"
         onChange={(e) => {
           console.log(e.target.value);
-          setEditedTodo(e.target.value);
+          props.setEditedTodo(e.target.value);
         }}
         onBlur={() => {
-          updateTodo(todo.id, todoBefore);
-          setEditingTodoId(null);
+          props.updateTodo(props.todo.id, props.todoBefore);
+          props.setEditingTodoId(null);
         }}
-        value={todoBefore}
+        value={props.todoBefore}
         id="edit"
         name="edit"
       />
@@ -51,21 +41,21 @@ export function TodoItem({
 
   const handleOnClickArrowUp: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
-    moveUp(todo.id);
+    props.moveUp(props.todo.id);
   };
 
   const handleOnClickArrowDown: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
-    moveDown(todo.id);
+    props.moveDown(props.todo.id);
   };
 
   const handleOnEdit: MouseEventHandler<HTMLButtonElement> = () => {
-    setEditingTodoId(todo.id);
+    props.setEditingTodoId(props.todo.id);
   };
 
     const todoValue = (
       <div className="todo-container">
-        <div className="text">{todo.todo}</div>
+        <div className="text">{props.todo.todo}</div>
         <button className="btn-primary small" onClick={handleOnEdit}>
           Edit
         </button>
@@ -78,7 +68,7 @@ export function TodoItem({
         <input type="checkbox" id="done" className="done" />
       </div>
       <div>
-        <div>{editingTodoId === todo.id ? inputField : todoValue}</div>
+        <div>{props.editingTodoId === props.todo.id ? inputField : todoValue}</div>
       </div>
       <div className="action-icons">
         <button onClick={handleOnClickArrowUp} className="btn-icon moveUp">
@@ -95,7 +85,7 @@ export function TodoItem({
         <span className="material-icons moreInfo">
           info
           <span className="mInfo">
-            author:{todo.author} date: {todo.timeStamp.toString()}
+            author:{props.todo.author} date: {props.todo.timeStamp.toString()}
           </span>
         </span>
       </div>

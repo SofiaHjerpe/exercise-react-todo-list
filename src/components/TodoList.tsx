@@ -13,21 +13,21 @@ interface ITodoListProps {
   updateTodo: (id: number, newValue: string) => void;
   editingTodoId: number | null;
 }
-export function TodoList({ todos, editingTodoId, deleteTodo, updateTodo, todoBefore, setEditedTodo, setEditingTodoId, moveDown, moveUp }: ITodoListProps) {
+export function TodoList(props: ITodoListProps) {
   return (
     <div>
-      {todos.map((todo) => (
+      {props.todos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}
-          moveUp={moveUp}
-          moveDown={moveDown}
-          deleteTodo={deleteTodo}
-          todoBefore={todoBefore}
-          updateTodo={updateTodo}
-          setEditedTodo={setEditedTodo}
-          setEditingTodoId={setEditingTodoId}
-          editingTodoId={editingTodoId}
+          moveUp={props.moveUp}
+          moveDown={props.moveDown}
+          deleteTodo={props.deleteTodo}
+          todoBefore={props.todoBefore}
+          updateTodo={props.updateTodo}
+          setEditedTodo={props.setEditedTodo}
+          setEditingTodoId={props.setEditingTodoId}
+          editingTodoId={props.editingTodoId}
         />
       ))}
       ;
