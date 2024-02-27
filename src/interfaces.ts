@@ -2,6 +2,6 @@ export interface ITodo {
     id: number;
     todo: string;
     author: string; 
-    timeStamp: Date; 
+    timeStamp: string; 
     done: boolean;
 }

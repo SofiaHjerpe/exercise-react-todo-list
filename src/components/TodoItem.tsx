@@ -23,7 +23,6 @@ export function TodoItem({
   setEditedTodo,
   editingTodoId,
 }: ITodoItemProps) {
-  console.log(todoBefore);
   const handleOnClick: MouseEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     deleteTodo(todo.id);
@@ -60,8 +59,7 @@ export function TodoItem({
     moveDown(todo.id);
   };
 
-  const handleOnEdit: MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.stopPropagation();
+  const handleOnEdit: MouseEventHandler<HTMLButtonElement> = () => {
     setEditingTodoId(todo.id);
   };
 

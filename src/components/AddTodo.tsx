@@ -60,7 +60,7 @@ export function AddTodo() {
       id: todoItem.length,
       todo: todo,
       author: author,
-      timeStamp: new Date(),
+      timeStamp: new Date().getDate().toString(),
       done: false,
     };
     console.log(newTodoItem);
