@@ -1,7 +1,7 @@
 import { FormEventHandler, useState } from "react";
 import { Form } from "./Form";
 import { ITodo } from "../interfaces";
-import { Sort } from "./Sort";
+
 import { TodoList } from "./TodoList";
 export function AddTodo() {
   const todos: ITodo[] = [];
@@ -72,7 +72,6 @@ export function AddTodo() {
   };
   return (
     <div>
-      <Sort sortTodos={sortTodo} sort={sort} setSort={setSort} />
       <Form
         addTodoToList={addTodoToList}
         todo={todo}
