@@ -1,6 +1,7 @@
 import { FormEventHandler, useState } from "react";
 import { Form } from "./Form";
 import { ITodo } from "../interfaces";
+import { Sort } from "./Sort";
 
 import { TodoList } from "./TodoList";
 export function AddTodo() {
@@ -9,8 +10,8 @@ export function AddTodo() {
   const [todo, setTodo] = useState("");
   const [todoBefore, setEditedTodo] = useState("");
   const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
+  const [sortActive, setSortActive] = useState(false);
   const [author, setAuthor] = useState("");
-  const [sort, setSort] = useState("");
 
   const moveUp = (id: number) => {
     setTodos((preVal) => {
@@ -66,6 +67,7 @@ export function AddTodo() {
     console.log(newTodoItem);
     setTodos([...todoItem, newTodoItem]);
   };
+  
 
 
 const sortTodoByAuthor = () => {
@@ -99,6 +101,12 @@ const sortTodoByTimestamp = () => {
 };
   return (
     <div>
+      <Sort
+        sortActive={sortActive}
+        setSortActive={setSortActive}
+        sortTodoByAuthor={sortTodoByAuthor}
+        sortTodoByTimestamp={sortTodoByTimestamp}
+      />
       <Form
         addTodoToList={addTodoToList}
         todo={todo}

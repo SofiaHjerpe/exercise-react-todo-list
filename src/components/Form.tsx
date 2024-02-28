@@ -11,11 +11,7 @@ interface IFormProps {
 export function Form(props: IFormProps) {
   return (
     <div>
-      <header className="sort-header">
-        <button className="btn-icon">
-          <span className="material-icons">sort</span>
-        </button>
-      </header>
+      
 
       <form className="form" onSubmit={props.addTodoToList}>
         <div className="inputs">
