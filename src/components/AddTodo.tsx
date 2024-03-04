@@ -1,57 +1,82 @@
+import { FormEventHandler, ReactElement, useContext, useState } from "react";
+import { TodoContext } from "../context/TodoContextProvider";
+import { ITodo } from "../interfaces";
+import { v4 as uuidv4 } from "uuid";
 
-  // const moveUp = (id: number) => {
-  //   setTodos((preVal) => {
-  //     const index = preVal.findIndex((todo) => todo.id === id);
+export function AddTodo(): ReactElement {
+    const {addTodoToList} = useContext(TodoContext)
+  const [value, setValue] = useState("");
+ const [authorVal, setAuthorValue] = useState("");
+  const  handleOnSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault(); 
+    const newItem = {
+        id: uuidv4(), 
+        todo: value, 
+        author: authorVal,
+        timeStamp: new Date().toLocaleTimeString(),
+        done: false
+    }
+    addTodoToList(newItem)
+  }
 
-  //     const copy = [...preVal];
 
-  //     if (index > 0) {
-  //       const temp = copy[index];
-  //       copy[index] = copy[index - 1];
-  //       copy[index - 1] = temp;
-  //     }
-  //     return copy;
-  //   });
-  // };
+  return (
+    <div>
+      <form className="form" onSubmit={handleOnSubmit}>
+        <div className="inputs">
+          <input
+            onChange={ (event) => setValue(event.target.value)}
+            className="addItem text"
+            type="text"
+            placeholder="+ Add Item"
+          />
+          <input
+            onChange={(event) => setAuthorValue(event.target.value)}
+            className="addItem author"
+            type="text"
+            placeholder="+ Author"
+          />
+        </div>
+        <button type="submit" className="btn-primary add">
+          Add
+        </button>
+      </form>
+    </div>
+  );
+}
+// const moveUp = (id: number) => {
+//   setTodos((preVal) => {
+//     const index = preVal.findIndex((todo) => todo.id === id);
 
-  // const moveDown = (id: number) => {
-  //   setTodos((preVal) => {
-  //     const index = preVal.findIndex((todo) => todo.id === id);
+//     const copy = [...preVal];
 
-  //     const copy = [...preVal];
+//     if (index > 0) {
+//       const temp = copy[index];
+//       copy[index] = copy[index - 1];
+//       copy[index - 1] = temp;
+//     }
+//     return copy;
+//   });
+// };
 
-  //     if (index < todoItem.length - 1) {
-  //       const temp = copy[index];
-  //       copy[index] = copy[index + 1];
-  //       copy[index + 1] = temp;
-  //     }
-  //     return copy;
-  //   });
-  // };
+// const moveDown = (id: number) => {
+//   setTodos((preVal) => {
+//     const index = preVal.findIndex((todo) => todo.id === id);
 
-  // const updateTodo = (id: number, newValue: string) => {
-  //   setTodos(todoItem.map((todo) => (todo.id === id ? { ...todo, todo: newValue } : todo)));
-  // };
+//     const copy = [...preVal];
 
-  
-  // const addTodoToList: FormEventHandler<HTMLFormElement> = (event) => {
-  //   event.preventDefault();
-  //   console.log("saved");
-  //   console.log(todo);
-  //   console.log(author);
+//     if (index < todoItem.length - 1) {
+//       const temp = copy[index];
+//       copy[index] = copy[index + 1];
+//       copy[index + 1] = temp;
+//     }
+//     return copy;
+//   });
+// };
 
-  //   const newTodoItem = {
-  //     id: todoItem.length,
-  //     todo: todo,
-  //     author: author,
-  //     timeStamp: new Date().toLocaleTimeString(),
-  //     done: false,
-  //   };
-  //   console.log(newTodoItem);
-  //   setTodos([...todoItem, newTodoItem]);
-  // };
-  
-
+// const updateTodo = (id: number, newValue: string) => {
+//   setTodos(todoItem.map((todo) => (todo.id === id ? { ...todo, todo: newValue } : todo)));
+// };
 
 // const sortTodoByAuthor = () => {
 //   setTodos((preVal) => {

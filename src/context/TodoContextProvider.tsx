@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 interface IContext {
   todoList: ITodo[];
   deleteTodo: (todoId: string) => void;
+  addTodoToList: (newItem: ITodo) => void;
 }
 
 interface ITodoContextProviderProps {
@@ -30,6 +31,13 @@ export function TodoContextProvider({ children }: ITodoContextProviderProps): Re
       done: false,
     },
   ]);
+
+  const addTodoToList = (newItem: ITodo): void => {
+
+
+    const updatedTodoList =  [newItem, ...todoList]
+    setTodoList(updatedTodoList);
+  };
   const deleteTodo = (todoId: string): void => {
     const updatedArray = todoList.filter((todo) => todo.id !== todoId);
     setTodoList(updatedArray);
@@ -38,6 +46,7 @@ export function TodoContextProvider({ children }: ITodoContextProviderProps): Re
   const values: IContext = {
     deleteTodo,
     todoList,
+    addTodoToList
   };
 
   return <TodoContext.Provider value={values}>{children}</TodoContext.Provider>;
