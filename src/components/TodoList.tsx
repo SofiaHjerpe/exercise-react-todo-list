@@ -1,36 +1,15 @@
-import { Dispatch, SetStateAction } from "react";
-import { ITodo } from "../interfaces";
+import { ReactElement, useContext } from "react";
 import { TodoItem } from "./TodoItem";
+import { TodoContext } from "../context/TodoContextProvider";
 
-interface ITodoListProps {
-  todos: ITodo[];
-  deleteTodo: (id: number) => void;
-  moveUp: (id: number) => void;
-  moveDown: (id: number) => void;
-  setEditingTodoId: Dispatch<SetStateAction<number | null>>;
-  setEditedTodo: Dispatch<React.SetStateAction<string>>;
-  todoBefore: string;
-  updateTodo: (id: number, newValue: string) => void;
-  editingTodoId: number | null;
-}
-export function TodoList(props: ITodoListProps) {
+export function TodoList(): ReactElement {
+  const { todoList } = useContext(TodoContext);
+
   return (
-    <div>
-      {props.todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          moveUp={props.moveUp}
-          moveDown={props.moveDown}
-          deleteTodo={props.deleteTodo}
-          todoBefore={props.todoBefore}
-          updateTodo={props.updateTodo}
-          setEditedTodo={props.setEditedTodo}
-          setEditingTodoId={props.setEditingTodoId}
-          editingTodoId={props.editingTodoId}
-        />
+    <>
+      {todoList.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
       ))}
-      ;
-    </div>
+    </>
   );
 }

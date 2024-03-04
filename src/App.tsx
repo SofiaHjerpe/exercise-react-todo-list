@@ -1,7 +1,8 @@
-import { AddTodo } from "./components/AddTodo";
+import { TodoList } from "./components/TodoList";
+
 import "./scss/main.scss";
 export function App() {
   return <>
-  <AddTodo />
+  <TodoList />
   </>;
 }
