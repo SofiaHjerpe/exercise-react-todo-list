@@ -4,15 +4,24 @@ import { TodoContext } from "../context/TodoContextProvider";
 
 interface ITodoItemProps {
   todo: ITodo;
-
 }
 
-export function TodoItem({ todo}: ITodoItemProps) {
-    const { deleteTodo } = useContext(TodoContext);
-   const handleOnClick: MouseEventHandler<HTMLSpanElement> = (event) => {
-     event.preventDefault();
-     deleteTodo(todo.id);
-   };
+export function TodoItem({ todo }: ITodoItemProps) {
+  const { deleteTodo, moveUp, moveDown } = useContext(TodoContext);
+  const handleOnClick: MouseEventHandler<HTMLSpanElement> = (event) => {
+    event.preventDefault();
+    deleteTodo(todo.id);
+  };
+
+  const handleOnMoveUpClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    moveUp(todo.id);
+  };
+
+  const handleOnMoveDownClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    moveDown(todo.id);
+  };
 
   //  const inputField = (
   //    <label>
@@ -57,44 +66,43 @@ export function TodoItem({ todo}: ITodoItemProps) {
   //   </div>
   // );
 
- return (
-   <article className="todo-item">
-     <div className="action-icons">
-       <label htmlFor="done">Done</label>
-       <input type="checkbox" id="done" className="done" />
-     </div>
+  return (
+    <article className="todo-item">
+      <div className="action-icons">
+        <label htmlFor="done">Done</label>
+        <input type="checkbox" id="done" className="done" />
+      </div>
 
-     <div>
-       <div className="todo-container">
-         <div className="text">{todo.todo}</div>
-     
-         <button className="btn-primary small" >
-        Edit
-         </button>
-   
-       </div>
-       {/* <div>{props.editingTodoId === props.todo.id ? inputField : todoValue}</div> */}
-     </div>
+      <div>
+        <div className="todo-container">
+          <div className="text">{todo.todo}</div>
 
-     <div className="action-icons">
-       <button className="btn-icon moveUp">
-         <span className="material-icons">arrow_upward</span>
-       </button>
+          <button className="btn-primary small">Edit</button>
+        </div>
+        {/* <div>{props.editingTodoId === props.todo.id ? inputField : todoValue}</div> */}
+      </div>
 
-       <button className="btn-icon moveDown">
-         <span className="material-icons">arrow_downward</span>
-       </button>
+      <div className="action-icons">
+        <button className="btn-icon moveUp" onClick={handleOnMoveUpClick}>
+          <span className="material-icons">arrow_upward</span>
+        </button>
 
-       <button className="btn-icon delete">
-         <span className="material-icons" onClick={handleOnClick}>delete</span>
-       </button>
+        <button className="btn-icon moveDown" onClick={handleOnMoveDownClick}>
+          <span className="material-icons">arrow_downward</span>
+        </button>
 
-       <span className="material-icons moreInfo">
-         <span className="mInfo">
-           author:{todo.author} date: {todo.timeStamp.toString()}
-         </span>
-       </span>
-     </div>
-   </article>
- );
+        <button className="btn-icon delete">
+          <span className="material-icons" onClick={handleOnClick}>
+            delete
+          </span>
+        </button>
+
+        <span className="material-icons moreInfo">
+          <span className="mInfo">
+            author:{todo.author} date: {todo.timeStamp.toString()}
+          </span>
+        </span>
+      </div>
+    </article>
+  );
 }

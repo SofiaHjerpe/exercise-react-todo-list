@@ -44,35 +44,7 @@ export function AddTodo(): ReactElement {
     </div>
   );
 }
-// const moveUp = (id: number) => {
-//   setTodos((preVal) => {
-//     const index = preVal.findIndex((todo) => todo.id === id);
 
-//     const copy = [...preVal];
-
-//     if (index > 0) {
-//       const temp = copy[index];
-//       copy[index] = copy[index - 1];
-//       copy[index - 1] = temp;
-//     }
-//     return copy;
-//   });
-// };
-
-// const moveDown = (id: number) => {
-//   setTodos((preVal) => {
-//     const index = preVal.findIndex((todo) => todo.id === id);
-
-//     const copy = [...preVal];
-
-//     if (index < todoItem.length - 1) {
-//       const temp = copy[index];
-//       copy[index] = copy[index + 1];
-//       copy[index + 1] = temp;
-//     }
-//     return copy;
-//   });
-// };
 
 // const updateTodo = (id: number, newValue: string) => {
 //   setTodos(todoItem.map((todo) => (todo.id === id ? { ...todo, todo: newValue } : todo)));
