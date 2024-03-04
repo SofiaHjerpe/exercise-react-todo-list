@@ -9,7 +9,7 @@ export function AddTodo(): ReactElement {
  const [authorVal, setAuthorValue] = useState("");
   const  handleOnSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault(); 
-    const newItem = {
+    const newItem: ITodo = {
         id: uuidv4(), 
         todo: value, 
         author: authorVal,
