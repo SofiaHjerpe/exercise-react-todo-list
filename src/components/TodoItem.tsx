@@ -79,6 +79,7 @@ export function TodoItem({ todo }: ITodoItemProps) {
         </button>
 
         <span className="material-icons moreInfo">
+         info
           <span className="mInfo">
             author:{todo.author} date: {todo.timeStamp.toString()}
           </span>
