@@ -45,8 +45,5 @@ export function AddTodo(): ReactElement {
   );
 }
 
-// const updateTodo = (id: number, newValue: string) => {
-//   setTodos(todoItem.map((todo) => (todo.id === id ? { ...todo, todo: newValue } : todo)));
-// };
 
 

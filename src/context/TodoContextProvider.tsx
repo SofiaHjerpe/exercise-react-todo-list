@@ -9,6 +9,7 @@ interface IContext {
   moveUp: (todoId: string) => void;
   moveDown: (todoId: string) => void;
   sortTodoByAuthorOrTimestamp: (sortVal: string) => void;
+  updateTodo: (todoId: string, newValue: string) => void;
 }
 
 interface ITodoContextProviderProps {
@@ -73,6 +74,10 @@ export function TodoContextProvider({ children }: ITodoContextProviderProps): Re
     });
   };
 
+   const updateTodo = (todoId: string, newValue: string) => {
+     setTodoList(todoList.map((todo) => (todo.id === todoId ? { ...todo, todo: newValue } : todo)));
+   };
+
   const sortTodoByAuthorOrTimestamp = (sortVal: string) => {
     switch (sortVal) {
       case "author":
@@ -113,6 +118,7 @@ export function TodoContextProvider({ children }: ITodoContextProviderProps): Re
     moveUp,
     moveDown,
     sortTodoByAuthorOrTimestamp,
+    updateTodo
   };
 
   return <TodoContext.Provider value={values}>{children}</TodoContext.Provider>;
