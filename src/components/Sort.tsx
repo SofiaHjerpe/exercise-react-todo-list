@@ -1,38 +1,20 @@
-import { Dispatch } from "react";
+import { useContext, useState } from "react";
+import { TodoContext } from "../context/TodoContextProvider";
 
-interface ISortProps {
-  sortTodoByAuthor: () => void;
-  sortTodoByTimestamp: () => void;
-  setSortActive: Dispatch<React.SetStateAction<boolean>>;
-  sortActive: boolean;
-}
-
-export function Sort(props: ISortProps) {
-  const sortOptionsApear = () => {
-    props.setSortActive((preVal) => !preVal);
-  };
-  const handleOnSortByTimestamp = () => {
-    props.sortTodoByTimestamp();
-  };
-  const handleOnSortByAuthor = () => {
-    props.sortTodoByAuthor();
-  };
-
+export function Sort() {
+  const { sortTodoByAuthorOrTimestamp } = useContext(TodoContext);
+  const [beforeSort, sortActive] = useState(Boolean);
   const sortOptions = (
     <span className="sortOptions">
-      <a href="#" onClick={handleOnSortByTimestamp}>
-        timestamp
-      </a>
-      <a href="#" onClick={handleOnSortByAuthor}>
-        author
-      </a>
+      <a href="#" onClick={() => sortTodoByAuthorOrTimestamp("timestamp")}>timestamp</a>
+      <a href="#" onClick={()=> sortTodoByAuthorOrTimestamp("author")}>author</a>
     </span>
   );
 
   return (
     <header className="sort-header">
-      <button onClick={sortOptionsApear} className="btn-icon">
-        {props.sortActive ? sortOptions : <span className="material-icons">sort</span>}
+      <button onClick={() => sortActive((preVal) => !preVal)} className="btn-icon">
+        {beforeSort ? sortOptions : <span className="material-icons">sort</span>}
       </button>
     </header>
   );

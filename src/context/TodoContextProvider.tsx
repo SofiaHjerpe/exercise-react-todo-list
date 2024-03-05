@@ -8,6 +8,7 @@ interface IContext {
   addTodoToList: (newItem: ITodo) => void;
   moveUp: (todoId: string) => void;
   moveDown: (todoId: string) => void;
+  sortTodoByAuthorOrTimestamp: (sortVal: string) => void;
 }
 
 interface ITodoContextProviderProps {
@@ -57,27 +58,61 @@ export function TodoContextProvider({ children }: ITodoContextProviderProps): Re
     });
   };
 
-   const moveDown = (todoId: string) => {
+  const moveDown = (todoId: string) => {
     setTodoList((preVal) => {
-  const index = preVal.findIndex((todo) => todo.id === todoId);
+      const index = preVal.findIndex((todo) => todo.id === todoId);
 
-     const copy = [...preVal];
+      const copy = [...preVal];
 
       if (index < todoList.length - 1) {
-       const temp = copy[index];
+        const temp = copy[index];
         copy[index] = copy[index + 1];
         copy[index + 1] = temp;
       }
-       return copy;
-     });
-};
+      return copy;
+    });
+  };
+
+  const sortTodoByAuthorOrTimestamp = (sortVal: string) => {
+    switch (sortVal) {
+      case "author":
+        setTodoList((preVal) => {
+          return [...preVal].sort((a, b) => {
+            if (a.author < b.author) {
+              return -1;
+            }
+            if (a.author > b.author) {
+              return 1;
+            }
+            // Authors are the same, sort by timeStamp
+            return a.timeStamp < b.timeStamp ? -1 : 1;
+          });
+        });
+        break;
+      case "timestamp":
+        setTodoList((preVal) => {
+          return [...preVal].sort((a, b) => {
+            if (a.timeStamp < b.timeStamp) {
+              return -1;
+            }
+            if (a.timeStamp > b.timeStamp) {
+              return 1;
+            }
+            // Timestamp are the same, sort by author
+            return a.author < b.author ? -1 : 1;
+          });
+        });
+        break;
+    }
+  };
 
   const values: IContext = {
     deleteTodo,
     todoList,
     addTodoToList,
     moveUp,
-    moveDown
+    moveDown,
+    sortTodoByAuthorOrTimestamp,
   };
 
   return <TodoContext.Provider value={values}>{children}</TodoContext.Provider>;
